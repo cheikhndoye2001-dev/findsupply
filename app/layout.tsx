@@ -15,9 +15,17 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://findsupply-word.vercel.app"),
   title: "FindSupply — You Find It. We Supply It.",
   description:
     "Envoyez une photo de l'article que vous cherchez, FindSupply le retrouve auprès de ses fournisseurs.",
+  openGraph: {
+    title: "FindSupply — You Find It. We Supply It.",
+    description:
+      "Envoyez une photo de l'article que vous cherchez, FindSupply le retrouve auprès de ses fournisseurs.",
+    locale: "fr_FR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

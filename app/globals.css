@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f0eee4;
+  color: #1c2b24;
+}
+
+::selection {
+  background-color: #c1440e;
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid #c1440e;
+  outline-offset: 2px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.status-a_traiter {
+  background: #f3e6df;
+  color: #8a3a10;
+  border-color: #e2c4b2;
+}
+
+.status-recherche_en_cours {
+  background: #eaf1f0;
+  color: #2f6f6a;
+  border-color: #c9dcda;
+}
+
+.status-trouve {
+  background: #eef2e3;
+  color: #4c6b1f;
+  border-color: #d4e0bd;
+}
+
+.status-commande {
+  background: #e8edf7;
+  color: #2c4a8f;
+  border-color: #c6d3ec;
+}
+
+.status-livre {
+  background: #1c2b24;
+  color: #f0eee4;
+  border-color: #1c2b24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

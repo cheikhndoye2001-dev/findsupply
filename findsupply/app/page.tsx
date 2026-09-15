@@ -7,7 +7,8 @@ import { createClient } from "@/lib/supabase/client";
 export default function HomePage() {
   const router = useRouter();
   const supabase = createClient();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -114,11 +115,7 @@ export default function HomePage() {
           <label className="block text-sm font-semibold mb-2">
             Photo de l&rsquo;article
           </label>
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="w-full aspect-[4/3] rounded-card border-2 border-dashed border-line bg-cardbg flex flex-col items-center justify-center gap-2 overflow-hidden"
-          >
+          <div className="w-full aspect-[4/3] rounded-card border-2 border-dashed border-line bg-cardbg flex flex-col items-center justify-center gap-2 overflow-hidden">
             {photoPreview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -130,16 +127,41 @@ export default function HomePage() {
               <>
                 <span className="text-3xl">📷</span>
                 <span className="text-sm text-ink/60">
-                  Touchez pour ajouter une photo
+                  Aucune photo sélectionnée
                 </span>
               </>
             )}
-          </button>
+          </div>
+
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => cameraInputRef.current?.click()}
+              className="rounded-card border border-line bg-cardbg py-3 text-sm font-semibold flex items-center justify-center gap-2"
+            >
+              📷 Prendre une photo
+            </button>
+            <button
+              type="button"
+              onClick={() => galleryInputRef.current?.click()}
+              className="rounded-card border border-line bg-cardbg py-3 text-sm font-semibold flex items-center justify-center gap-2"
+            >
+              🖼️ Choisir dans la galerie
+            </button>
+          </div>
+
           <input
-            ref={fileInputRef}
+            ref={cameraInputRef}
             type="file"
             accept="image/*"
             capture="environment"
+            onChange={handlePhotoChange}
+            className="hidden"
+          />
+          <input
+            ref={galleryInputRef}
+            type="file"
+            accept="image/*"
             onChange={handlePhotoChange}
             className="hidden"
           />

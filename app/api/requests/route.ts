@@ -31,27 +31,23 @@ export async function POST(request: Request) {
 
   const supabase = createClient();
 
-  const { data, error } = await supabase
-    .from("requests")
-    .insert({
-      item_description,
-      quantity: quantity ?? 1,
-      size_color_model,
-      budget_amount: budget_amount || null,
-      budget_currency: budget_amount ? budget_currency ?? "FCFA" : null,
-      photo_url,
-      client_name,
-      client_contact,
-      status: "a_traiter",
-    })
-    .select()
-    .single();
+  const { error } = await supabase.from("requests").insert({
+    item_description,
+    quantity: quantity ?? 1,
+    size_color_model,
+    budget_amount: budget_amount || null,
+    budget_currency: budget_amount ? budget_currency ?? "FCFA" : null,
+    photo_url,
+    client_name,
+    client_contact,
+    status: "a_traiter",
+  });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ request: data }, { status: 201 });
+  return NextResponse.json({ ok: true }, { status: 201 });
 }
 
 export async function GET() {

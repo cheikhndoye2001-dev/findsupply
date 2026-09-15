@@ -269,7 +269,7 @@ export default function HomePage() {
         </div>
 
         {error && (
-          <p className="mt-4 text-sm text-stamp font-medium">{error}</p>
+          <p className="mt-4 text-sm text-alert font-medium">{error}</p>
         )}
 
         <button

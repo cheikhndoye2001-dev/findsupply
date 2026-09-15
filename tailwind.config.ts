@@ -5,12 +5,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#F0EEE4",
-        ink: "#1C2B24",
-        stamp: "#C1440E",
-        teal: "#2F6F6A",
-        line: "#D8D3C4",
-        cardbg: "#FFFFFF",
+        paper: "#0A0E1A",
+        ink: "#E8ECFA",
+        stamp: "#7C5CFF",
+        teal: "#22E6B8",
+        alert: "#FF4D6D",
+        line: "#232B42",
+        cardbg: "#121729",
       },
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],

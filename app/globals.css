@@ -7,17 +7,17 @@ html {
 }
 
 body {
-  background-color: #f0eee4;
-  color: #1c2b24;
+  background-color: #0a0e1a;
+  color: #e8ecfa;
 }
 
 ::selection {
-  background-color: #c1440e;
+  background-color: #7c5cff;
   color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid #c1440e;
+  outline: 2px solid #7c5cff;
   outline-offset: 2px;
 }
 
@@ -33,33 +33,33 @@ body {
 }
 
 .status-a_traiter {
-  background: #f3e6df;
-  color: #8a3a10;
-  border-color: #e2c4b2;
+  background: rgba(255, 184, 77, 0.12);
+  color: #ffb84d;
+  border-color: rgba(255, 184, 77, 0.35);
 }
 
 .status-recherche_en_cours {
-  background: #eaf1f0;
-  color: #2f6f6a;
-  border-color: #c9dcda;
+  background: rgba(124, 92, 255, 0.14);
+  color: #b9a6ff;
+  border-color: rgba(124, 92, 255, 0.4);
 }
 
 .status-trouve {
-  background: #eef2e3;
-  color: #4c6b1f;
-  border-color: #d4e0bd;
+  background: rgba(34, 230, 184, 0.12);
+  color: #22e6b8;
+  border-color: rgba(34, 230, 184, 0.35);
 }
 
 .status-commande {
-  background: #e8edf7;
-  color: #2c4a8f;
-  border-color: #c6d3ec;
+  background: rgba(77, 163, 255, 0.12);
+  color: #4da3ff;
+  border-color: rgba(77, 163, 255, 0.35);
 }
 
 .status-livre {
-  background: #1c2b24;
-  color: #f0eee4;
-  border-color: #1c2b24;
+  background: #22e6b8;
+  color: #061a15;
+  border-color: #22e6b8;
 }
 
 @media (prefers-reduced-motion: reduce) {

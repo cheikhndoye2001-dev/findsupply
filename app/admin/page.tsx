@@ -25,7 +25,7 @@ export default async function AdminPage() {
 
       <div className="px-5 pt-5">
         {error && (
-          <p className="text-sm text-stamp">
+          <p className="text-sm text-alert">
             Erreur de chargement des demandes : {error.message}
           </p>
         )}

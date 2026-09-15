@@ -70,7 +70,7 @@ export default function AdminLoginPage() {
         </div>
 
         {error && (
-          <p className="text-sm text-stamp font-medium">{error}</p>
+          <p className="text-sm text-alert font-medium">{error}</p>
         )}
 
         <button

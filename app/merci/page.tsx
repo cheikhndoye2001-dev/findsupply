@@ -1,8 +1,9 @@
 import Link from "next/link";
+import LegalFooter from "../LegalFooter";
 
 export default function MerciPage() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 text-center relative">
       <span className="text-4xl">✅</span>
       <h1 className="mt-4 font-display text-2xl font-bold">
         Demande envoyée
@@ -17,6 +18,9 @@ export default function MerciPage() {
       >
         Envoyer une autre demande
       </Link>
+      <div className="absolute bottom-0 inset-x-0">
+        <LegalFooter />
+      </div>
     </main>
   );
 }

@@ -13,7 +13,13 @@ export async function POST(request: Request) {
     photo_url,
     client_name,
     client_contact,
+    website, // piège anti-spam : doit toujours être vide
   } = body;
+
+  // Anti-spam : un robot qui remplit ce champ caché est silencieusement ignoré
+  if (typeof website === "string" && website.trim() !== "") {
+    return NextResponse.json({ ok: true }, { status: 201 });
+  }
 
   if (!item_description || !photo_url || !client_name || !client_contact) {
     return NextResponse.json(

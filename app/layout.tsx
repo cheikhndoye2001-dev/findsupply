@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import CookieBanner from "./CookieBanner";
 import "./globals.css";
 
 const display = Space_Grotesk({
@@ -40,6 +42,8 @@ export default function RootLayout({
     <html lang="fr">
       <body className={`${display.variable} ${body.variable} font-body`}>
         {children}
+        <CookieBanner />
+        <Analytics />
       </body>
     </html>
   );

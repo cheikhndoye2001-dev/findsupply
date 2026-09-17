@@ -3,12 +3,14 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import LegalFooter from "./LegalFooter";
 
 export default function HomePage() {
   const router = useRouter();
   const supabase = createClient();
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
+  const formLoadedAt = useRef(Date.now());
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -21,6 +23,8 @@ export default function HomePage() {
   );
   const [clientName, setClientName] = useState("");
   const [clientContact, setClientContact] = useState("");
+  const [website, setWebsite] = useState(""); // piège anti-spam (honeypot)
+  const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,6 +45,17 @@ export default function HomePage() {
     }
     if (!itemDescription.trim() || !clientName.trim() || !clientContact.trim()) {
       setError("Merci de remplir la description, votre nom et un contact.");
+      return;
+    }
+    if (!consent) {
+      setError(
+        "Merci d'accepter l'utilisation de vos informations pour continuer."
+      );
+      return;
+    }
+    // Anti-spam : champ piège rempli par les robots, ou envoi anormalement rapide
+    if (website.trim() !== "" || Date.now() - formLoadedAt.current < 2000) {
+      setError("Une erreur est survenue, merci de réessayer.");
       return;
     }
 
@@ -71,6 +86,7 @@ export default function HomePage() {
           photo_url: publicUrl,
           client_name: clientName,
           client_contact: clientContact,
+          website,
         }),
       });
 
@@ -111,6 +127,17 @@ export default function HomePage() {
       </section>
 
       <form onSubmit={handleSubmit} className="px-5 pb-16">
+        {/* Piège anti-spam : champ invisible pour les humains, rempli par les robots */}
+        <input
+          type="text"
+          name="website"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          className="absolute -left-[9999px] w-px h-px opacity-0"
+          aria-hidden="true"
+        />
         <div className="mt-2">
           <label className="block text-sm font-semibold mb-2">
             Photo de l&rsquo;article
@@ -281,6 +308,8 @@ export default function HomePage() {
                 id="client_contact"
                 type="tel"
                 required
+                pattern="^[+0-9][0-9\s.-]{7,}$"
+                title="Entrez un numéro de téléphone valide"
                 value={clientContact}
                 onChange={(e) => setClientContact(e.target.value)}
                 placeholder="+221 77 000 00 00"
@@ -294,14 +323,42 @@ export default function HomePage() {
           <p className="mt-4 text-sm text-alert font-medium">{error}</p>
         )}
 
+        <label className="mt-6 flex items-start gap-2.5 text-xs text-ink/70">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            className="mt-0.5 flex-shrink-0"
+          />
+          <span>
+            J&rsquo;accepte que mes informations soient utilisées pour
+            traiter ma demande, conformément à la{" "}
+            <a
+              href="/confidentialite"
+              className="text-teal underline underline-offset-2"
+            >
+              politique de confidentialité
+            </a>{" "}
+            et aux{" "}
+            <a
+              href="/cgu"
+              className="text-teal underline underline-offset-2"
+            >
+              conditions générales
+            </a>
+            .
+          </span>
+        </label>
+
         <button
           type="submit"
           disabled={submitting}
-          className="mt-8 w-full rounded-card bg-stamp text-white font-semibold py-4 disabled:opacity-60"
+          className="mt-6 w-full rounded-card bg-stamp text-white font-semibold py-4 disabled:opacity-60"
         >
           {submitting ? "Envoi en cours..." : "Envoyer ma demande"}
         </button>
       </form>
+      <LegalFooter />
     </main>
   );
 }
